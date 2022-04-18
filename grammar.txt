@@ -1,0 +1,149 @@
+Q -> D P
+Q -> P
+------------------------------------------
+D -> .data M
+------------------------------------------
+P -> .prog I
+P -> .prog L I
+------------------------------------------
+M -> _!name !value
+M -> ALLOCATE _!name !size
+M -> _!name !value M
+M -> ALLOCATE _!name !size M
+------------------------------------------
+L -> :!lab I
+------------------------------------------
+I -> LD !regC !regA !regB
+I -> ST !regC !regA !regB
+I -> JMP !regC !label
+I -> BEQ !regC !regA !label
+I -> BNE !regC !regA !label
+I -> ADD !regC !regA !regB
+I -> SUB !regC !regA !regB
+I -> MUL !regC !regA !regB
+I -> DIV !regC !regA !regB
+I -> CMPEQ !regC !regA !regB
+I -> CMPLT !regC !regA !regB
+I -> CMPLE !regC !regA !regB
+I -> AND !regC !regA !regB
+I -> OR !regC !regA !regB
+I -> XOR !regC !regA !regB
+I -> XNOR !regC !regA !regB
+I -> SHL !regC !regA !regB
+I -> SHR !regC !regA !regB
+I -> SRA !regC !regA !regB
+I -> ADDC !regC !regA !const
+I -> SUBC !regC !regA !const
+I -> MULC !regC !regA !const
+I -> DIVC !regC !regA !const
+I -> CMPEQC !regC !regA !const
+I -> CMPLTC !regC !regA !const
+I -> CMPLEC !regC !regA !const
+I -> ANDC !regC !regA !const
+I -> ORC !regC !regA !const
+I -> XORC !regC !regA !const
+I -> XNORC !regC !regA !const
+I -> SHLC !regC !regA !const
+I -> SHRC !regC !regA !const
+I -> SRAC !regC !regA !const
+I -> LD !regC !regA !regB I
+I -> ST !regC !regA !regB I
+I -> JMP !regC !label I
+I -> BEQ !regC !regA !label I
+I -> BNE !regC !regA !label I
+I -> LDR !regC !label I
+I -> ADD !regC !regA !regB I
+I -> SUB !regC !regA !regB I
+I -> MUL !regC !regA !regB I
+I -> DIV !regC !regA !regB I
+I -> CMPEQ !regC !regA !regB I
+I -> CMPLT !regC !regA !regB I
+I -> CMPLE !regC !regA !regB I
+I -> AND !regC !regA !regB I
+I -> OR !regC !regA !regB I
+I -> XOR !regC !regA !regB I
+I -> XNOR !regC !regA !regB I
+I -> SHL !regC !regA !regB I
+I -> SHR !regC !regA !regB I
+I -> SRA !regC !regA !regB I
+I -> ADDC !regC !regA !const I
+I -> SUBC !regC !regA !const I
+I -> MULC !regC !regA !const I
+I -> DIVC !regC !regA !const I
+I -> CMPEQC !regC !regA !const I
+I -> CMPLTC !regC !regA !const I
+I -> CMPLEC !regC !regA !const I
+I -> ANDC !regC !regA !const I
+I -> ORC !regC !regA !const I
+I -> XORC !regC !regA !const I
+I -> XNORC !regC !regA !const I
+I -> SHLC !regC !regA !const I
+I -> SHRC !regC !regA !const I
+I -> SRAC !regC !regA !const I
+I -> L LD !regC !regA !regB
+I -> L ST !regC !regA !regB
+I -> L JMP !regC !label
+I -> L BEQ !regC !regA !label
+I -> L BNE !regC !regA !label
+I -> L ADD !regC !regA !regB
+I -> L SUB !regC !regA !regB
+I -> L MUL !regC !regA !regB
+I -> L DIV !regC !regA !regB
+I -> L CMPEQ !regC !regA !regB
+I -> L CMPLT !regC !regA !regB
+I -> L CMPLE !regC !regA !regB
+I -> L AND !regC !regA !regB
+I -> L OR !regC !regA !regB
+I -> L XOR !regC !regA !regB
+I -> L XNOR !regC !regA !regB
+I -> L SHL !regC !regA !regB
+I -> L SHR !regC !regA !regB
+I -> L SRA !regC !regA !regB
+I -> L ADDC !regC !regA !const
+I -> L SUBC !regC !regA !const
+I -> L MULC !regC !regA !const
+I -> L DIVC !regC !regA !const
+I -> L CMPEQC !regC !regA !const
+I -> L CMPLTC !regC !regA !const
+I -> L CMPLEC !regC !regA !const
+I -> L ANDC !regC !regA !const
+I -> L ORC !regC !regA !const
+I -> L XORC !regC !regA !const
+I -> L XNORC !regC !regA !const
+I -> L SHLC !regC !regA !const
+I -> L SHRC !regC !regA !const
+I -> L SRAC !regC !regA !const
+I -> L LD !regC !regA !regB I
+I -> L ST !regC !regA !regB I
+I -> L JMP !regC !label I
+I -> L BEQ !regC !regA !label I
+I -> L BNE !regC !regA !label I
+I -> L LDR !regC !label I
+I -> L ADD !regC !regA !regB I
+I -> L SUB !regC !regA !regB I
+I -> L MUL !regC !regA !regB I
+I -> L DIV !regC !regA !regB I
+I -> L CMPEQ !regC !regA !regB I
+I -> L CMPLT !regC !regA !regB I
+I -> L CMPLE !regC !regA !regB I
+I -> L AND !regC !regA !regB I
+I -> L OR !regC !regA !regB I
+I -> L XOR !regC !regA !regB I
+I -> L XNOR !regC !regA !regB I
+I -> L SHL !regC !regA !regB I
+I -> L SHR !regC !regA !regB I
+I -> L SRA !regC !regA !regB I
+I -> L ADDC !regC !regA !const I
+I -> L SUBC !regC !regA !const I
+I -> L MULC !regC !regA !const I
+I -> L DIVC !regC !regA !const I
+I -> L CMPEQC !regC !regA !const I
+I -> L CMPLTC !regC !regA !const I
+I -> L CMPLEC !regC !regA !const I
+I -> L ANDC !regC !regA !const I
+I -> L ORC !regC !regA !const I
+I -> L XORC !regC !regA !const I
+I -> L XNORC !regC !regA !const I
+I -> L SHLC !regC !regA !const I
+I -> L SHRC !regC !regA !const I
+I -> L SRAC !regC !regA !const I
