@@ -22,12 +22,11 @@ deinit_list_from(node_t* where_to_start)
     node_t* temp1;
     node_t* temp2;
     temp1 = where_to_start;
-    do {
+    while (temp1 != NULL) {
         temp2 = temp1->next;
         free(temp1);
         temp1 = temp2;
-    } while (temp2->next != NULL);
-    free(temp2);
+    }
 }
 
 /*
@@ -49,10 +48,12 @@ node_t*
 list_seek_end(node_t* current)
 {
     node_t* temp = current;
-    while (temp->next != NULL) {
+    node_t* tprev;
+    while (temp != NULL) {
+        tprev = temp;
         temp = temp->next;
     }
-    return temp;
+    return tprev;
 }
 
 /*

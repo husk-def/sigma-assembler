@@ -2,95 +2,92 @@
 #define TOKEN_H
 
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-// typedef enum {
-// 	PROG,
-// 	DATA,
-// 	RESERVE,
-// 	NAME,
-// 	SIZE,
-// 	INSTRUCTION,
-// 	REGISTER
-// } token_class_t;
 
 typedef enum {
-	/* error */
-	ERR = 0,
-	/* directives */
-	PROG,
-	DATA,
-	/* memory stuff */
-	RESERVE, 
-	NAME,
-	SIZE,
-	/* instructions */
-	LD,
-	ST,
-	JMP,
-	BEQ,
-	BNE,
-	ADD,
-	SUB,
-	MUL,
-	DIV,
-	CMPEQ,
-	CMPLT,
-	CMPLE,
-	AND,
-	OR,
-	XOR,
-	XNOR,
-	SHL,
-	SHR,
-	SRA,
-	ADDC,
-	SUBC,
-	MULC,
-	DIVC,
-	CMPEQC,
-	CMPLTC,
-	CMPLEC,
-	ANDC,
-	ORC,
-	XORC,
-	XNORC,
-	SHLC,
-	SHRC,
-	SRAC,
 	/* registers */
-	REG01,
-	REG02,
-	REG03,
-	REG04,
-	REG05,
-	REG06,
-	REG07,
-	REG08,
-	REG09,
-	REG10,
-	REG11,
-	REG12,
-	REG13,
-	REG14,
-	REG15,
-	REG16,
-	REG17,
-	REG18,
-	REG19,
-	REG20,
-	REG21,
-	REG22,
-	REG23,
-	REG24,
-	REG25,
-	REG26,
-	REG27,
-	REG28,
-	REG29,
-	REG30,
-	REG31,
-	/* universal, should not be used except for eat purposes */
-	REG
+	T_REG01 = 0,
+	T_REG02,
+	T_REG03,
+	T_REG04,
+	T_REG05,
+	T_REG06,
+	T_REG07,
+	T_REG08,
+	T_REG09,
+	T_REG10,
+	T_REG11,
+	T_REG12,
+	T_REG13,
+	T_REG14,
+	T_REG15,
+	T_REG16,
+	T_REG17,
+	T_REG18,
+	T_REG19,
+	T_REG20,
+	T_REG21,
+	T_REG22,
+	T_REG23,
+	T_REG24,
+	T_REG25,
+	T_REG26,
+	T_REG27,
+	T_REG28,
+	T_REG29,
+	T_REG30,
+	T_REG31,
+	/* instructions */
+	T_LD,
+	T_ST,
+	T_JMP,
+	T_BEQ,
+	T_BNE,
+	T_ADD,
+	T_SUB,
+	T_MUL,
+	T_DIV,
+	T_CMPEQ,
+	T_CMPLT,
+	T_CMPLE,
+	T_AND,
+	T_OR,
+	T_XOR,
+	T_XNOR,
+	T_SHL,
+	T_SHR,
+	T_SRA,
+	T_ADDC,
+	T_SUBC,
+	T_MULC,
+	T_DIVC,
+	T_CMPEQC,
+	T_CMPLTC,
+	T_CMPLEC,
+	T_ANDC,
+	T_ORC,
+	T_XORC,
+	T_XNORC,
+	T_SHLC,
+	T_SHRC,
+	T_SRAC,
+	/* directives */
+	T_PROG,
+	T_DATA,
+	/* memory stuff */
+	T_ALLOCATE,
+	/* not to be compared */
+	T_REG,
+	/* variable name */
+	T_VARIABLE,
+	/* universal reg type */
+	T_LITERAL,
+	/**/
+	T_LABEL,
+	/* error */
+	T_ERR,
 } token_type_t;
 
 
@@ -105,5 +102,9 @@ typedef struct {
 
 void
 print_token_info(token_t t);
+
+
+token_type_t
+get_token_type(const char *word);
 
 #endif /* TOKEN_H */

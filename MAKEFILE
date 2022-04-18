@@ -16,10 +16,10 @@ BDIR=bin
 LIBS=-lm -pthread
 
 
-_OBJ = files.o tokenizer.o test.o list.o token.o
+_OBJ = files.o test.o list.o token.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-_DEPS = tokenizer.h files.h list.h token.h
+_DEPS = files.h list.h token.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 # The -c flag says to generate the object file
 # The -o $@ says to put the output of the compilation in the file named on the left side of the :
