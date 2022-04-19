@@ -14,19 +14,26 @@ init_list(void)
 }
 
 /*
- * deinitializes list nodes starting from where_to_start
+ * deinitializes list nodes starting from where_to_start excluding where_to_start
  */
 void
-deinit_list_from(node_t* where_to_start)
+deinit_list_from(node_t** where_to_start)
 {
     node_t* temp1;
-    node_t* temp2;
-    temp1 = where_to_start;
-    while (temp1 != NULL) {
-        temp2 = temp1->next;
+    /*if (temp1 == (node_t*)NULL) {
+        return;
+    } else {
+        temp2 = *temp1;
         free(temp1);
-        temp1 = temp2;
+        deinit_list_from(temp2.next);
+    }*/
+    while (*where_to_start != NULL) {
+        temp1 = *where_to_start;
+        *where_to_start = (*where_to_start)->next;
+        temp1->next = NULL;
+        free(temp1);
     }
+    
 }
 
 /*

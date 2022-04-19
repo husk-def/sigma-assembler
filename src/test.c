@@ -36,20 +36,26 @@ main(void)
 
     export_lower_case(program, lower_path, progsize);
 
-    fp = fopen(path, "r");
+    node_t *pnode = node;
+
+    fp = fopen(lower_path, "r");
 
         /* leaves an extra token at the end */
     while ((check = fscanf(fp, " %s", word)) > 0) {
         printf(".%s.\n", word);
         strcpy(node->val.value, word);
 		node->val.type = get_token_type(node->val.value);
+        pnode = node;
         node = list_expand(node);
     }
         /* remove that extra token */
-    deinit_list_from(node);
+    //deinit_list_from(&node);
+    free(node);
+    pnode->next = NULL;
 
     node = ls_begin;
 
+    printf("\n\nprint token info part\n\n");
     while(node != NULL) {
         if (node != list_seek_end(ls_begin)) {
             print_token_info(node->val);
@@ -59,5 +65,7 @@ main(void)
         }
     }
 
+    deinit_list_from(&ls_begin);
+    fclose(fp);
     exit(0);
 }

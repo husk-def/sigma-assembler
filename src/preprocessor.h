@@ -14,4 +14,9 @@ to_lower_case(char* input, int progsize);
 void
 export_lower_case(const char* input, const char* path, int progsize);
 
+
+void
+export_uncommented(const char* path_in, const char* path_out);
+
+
 #endif /* PREPROCESSOR_H */

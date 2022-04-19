@@ -16,7 +16,7 @@ init_list(void);
 
 
 void
-deinit_list_from(node_t* where_to_start);
+deinit_list_from(node_t** where_to_start);
 
 
 node_t*
