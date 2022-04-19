@@ -5,6 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 
+/* token_t enum */
 typedef enum {
 	/* registers */
 	T_REG01 = 0,
