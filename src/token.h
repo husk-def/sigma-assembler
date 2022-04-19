@@ -5,7 +5,6 @@
 #include <string.h>
 #include <ctype.h>
 
-
 typedef enum {
 	/* registers */
 	T_REG01 = 0,
@@ -39,7 +38,7 @@ typedef enum {
 	T_REG29,
 	T_REG30,
 	T_REG31,
-	/* instructions */
+	// instructions 
 	T_LD,
 	T_ST,
 	T_JMP,
@@ -73,20 +72,21 @@ typedef enum {
 	T_SHLC,
 	T_SHRC,
 	T_SRAC,
-	/* directives */
+	// directives 
 	T_PROG,
 	T_DATA,
-	/* memory stuff */
+	// memory stuff 
 	T_ALLOCATE,
-	/* not to be compared */
+	/* not to be compared with */
+	// universal reg type 
 	T_REG,
-	/* variable name */
+	// variable name 
 	T_VARIABLE,
-	/* universal reg type */
+	// literal
 	T_LITERAL,
 	/**/
 	T_LABEL,
-	/* error */
+	// error 
 	T_ERR,
 } token_type_t;
 
