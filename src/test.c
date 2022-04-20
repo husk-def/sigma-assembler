@@ -8,37 +8,31 @@ int
 main(void)
 {
     /* variables */
-    int             i;
-    int             progsize;
-    char*           program;
     char            word[21];
     int             check;
     FILE*           fp;
         /* points to the beginning of a list, should not be changed! */
     node_t*         ls_begin = init_list();          
     node_t*         node;
+    node_t*         pnode;
         /* hardcoded path, todo change this */
-    const char*     path = "/home/rtrk/Documents/ra211-2019-assembler/sigma-assembler/example/e1.assembly";
-    const char*     lower_path = "/home/rtrk/Documents/ra211-2019-assembler/sigma-assembler/example/e1_lower.assembly";
+        /* use command line arguments for input and output */
+    const char*     path = "./example/e1.assembly";
+    const char*     lower_path = "./example/e1_lower.assembly";
+    const char*     lower_uncomment_path = "./example/e1_lower_uncomment.assembly";
 
     node = ls_begin;
     
     /* implementation */
-    progsize = get_file_size(path);
-    printf("progsize = %d\n", progsize);
 
-    program = (char*)malloc((progsize + 1) * sizeof(char));
-    get_program(path, program, progsize);
-    printf("program\n%s\n", program);
+    export_add_trailing_newline(path);
 
-    to_lower_case(program, progsize);
-    printf("program_lowercase =\n%s\n", program);
+    export_lower_case(path, lower_path);
 
-    export_lower_case(program, lower_path, progsize);
+    export_uncommented(lower_path, lower_uncomment_path);
 
-    node_t *pnode = node;
 
-    fp = fopen(lower_path, "r");
+    fp = fopen(lower_uncomment_path, "r");
 
         /* leaves an extra token at the end */
     while ((check = fscanf(fp, " %s", word)) > 0) {
@@ -49,20 +43,16 @@ main(void)
         node = list_expand(node);
     }
         /* remove that extra token */
-    //deinit_list_from(&node);
-    free(node);
+    deinit_list_from(&node);
+    //free(node);
     pnode->next = NULL;
 
     node = ls_begin;
 
     printf("\n\nprint token info part\n\n");
     while(node != NULL) {
-        if (node != list_seek_end(ls_begin)) {
-            print_token_info(node->val);
-            node = get_next(node);
-        } else {
-            break;
-        }
+        print_token_info(node->val);
+        node = get_next(node);
     }
 
     deinit_list_from(&ls_begin);

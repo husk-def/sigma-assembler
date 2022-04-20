@@ -1,3 +1,4 @@
+### C ###
 # Prerequisites
 *.d
 
@@ -50,3 +51,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Binary and object files
+bin/
+obj/
