@@ -8,15 +8,30 @@ ALLOCATE _vrm 23
 
 .prog
 
-add     r2  r2  r3                        ;this is a comment
+add     r2  r2  r3                        ; this is a comment
 [
     this is a 
     multiline 
     comment
 ]
+:mainlabel
 SuB     r3  R2  r2
 ld      r4  r5  r7
 mul     r9  r31 2013                     ; multiplies
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,8 +6,23 @@ allocate _vrm 23
 .prog
 
 add     r2  r2  r3                        
+:mainlabel
 sub     r3  r2  r2
 ld      r4  r5  r7
 mul     r9  r31 2013                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

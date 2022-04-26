@@ -4,11 +4,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <regex.h>
+
+#define REGEX_COUNT 78
+
 
 /* token_t enum */
 typedef enum {
 	/* registers */
-	T_REG01 = 0,
+	T_REG00 = 0,
+	T_REG01,
 	T_REG02,
 	T_REG03,
 	T_REG04,
@@ -78,17 +83,18 @@ typedef enum {
 	T_DATA,
 	// memory stuff 
 	T_ALLOCATE,
+	// literal
+	T_LITERAL = T_ALLOCATE + 3,
+	// variable name 
+	T_VARIABLE,
+	/**/
+	T_LABEL,
 	/* not to be compared with */
 	// universal reg type 
 	T_REG,
-	// variable name 
-	T_VARIABLE,
-	// literal
-	T_LITERAL,
-	/**/
-	T_LABEL,
 	// error 
 	T_ERR,
+	T_END
 } token_type_t;
 
 
@@ -100,6 +106,22 @@ typedef struct {
 } token_t;
 
 /* ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~*/
+
+int
+is_all_num(const char *s);
+
+
+void
+print_token_info(token_t t);
+
+
+void
+generate_regexes(void);
+
+
+void
+free_regexes(void);
+
 
 void
 print_token_info(token_t t);

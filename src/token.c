@@ -1,86 +1,98 @@
 #include "token.h"
 
-const char token_s[72][10] = {
+const char token_s[78][25] = {
     /* registers */
-	"r1",
-	"r2",
-	"r3",
-	"r4",
-	"r5",
-	"r6",
-	"r7",
-	"r8",
-	"r9",
-	"r10",
-	"r11",
-	"r12",
-	"r13",
-	"r14",
-	"r15",
-	"r16",
-	"r17",
-	"r18",
-	"r19",
-	"r20",
-	"r21",
-	"r22",
-	"r23",
-	"r24",
-	"r25",
-	"r26",
-	"r27",
-	"r28",
-	"r29",
-	"r30",
-	"r31",
+	"^r0$",
+	"^r1$",
+	"^r2$",
+	"^r3$",
+	"^r4$",
+	"^r5$",
+	"^r6$",
+	"^r7$",
+	"^r8$",
+	"^r9$",
+	"^r10$",
+	"^r11$",
+	"^r12$",
+	"^r13$",
+	"^r14$",
+	"^r15$",
+	"^r16$",
+	"^r17$",
+	"^r18$",
+	"^r19$",
+	"^r20$",
+	"^r21$",
+	"^r22$",
+	"^r23$",
+	"^r24$",
+	"^r25$",
+	"^r26$",
+	"^r27$",
+	"^r28$",
+	"^r29$",
+	"^r30$",
+	"^r31$",
 	/* instructions */
-	"ld",
-	"st",
-	"jmp",
-	"beq",
-	"bne",
-	"add",
-	"sub",
-	"mul",
-	"div",
-	"cmpeq",
-	"cmplt",
-	"cmple",
-	"and",
-	"orc",
-	"xor",
-	"xnor",
-	"shl",
-	"shr",
-	"sra",
-	"addc",
-	"subc",
-	"mulc",
-	"divc",
-	"cmpeqc",
-	"cmpltc",
-	"cmplec",
-	"andc",
-    "orc",
-    "xorc",
-    "xnorc",	
-	"shlc",
-	"shrc",
-	"srac",
+	"^ld$",
+	"^st$",
+	"^jmp$",
+	"^beq$",
+	"^bne$",
+	"^add$",
+	"^sub$",
+	"^mul$",
+	"^div$",
+	"^cmpeq$",
+	"^cmplt$",
+	"^cmple$",
+	"^and$",
+	"^orc$",
+	"^xor$",
+	"^xnor$",
+	"^shl$",
+	"^shr$",
+	"^sra$",
+	"^addc$",
+	"^subc$",
+	"^mulc$",
+	"^divc$",
+	"^cmpeqc$",
+	"^cmpltc$",
+	"^cmplec$",
+	"^andc$",
+    "^orc$",
+    "^xorc$",
+    "^xnorc$",	
+	"^shlc$",
+	"^shrc$",
+	"^srac$",
 	/* directives */
-	".prog",
-	".data",
+	"^.prog$",
+	"^.data$",
 	/* memory stuff */
-	"allocate",
+	"^allocate$",
+	/* decimal literal */
+	"^[0-9]{1,16}$",
+	/* hexadecimal literal */
+	"^0x[0-9a-fA-F]{1,8}$",
+	/* binary literal */
+	"^0b[0-1]{1,16}$",
+	/* variable */
+	"^_[0-9a-zA-Z]{1,20}$",
+	/* label */
+	"^:[0-9a-zA-Z]{1,20}$",
     /* dont use this */
     "reg",
-    "variable",
-    "literal",
-    "label",
     "error"
 };
 
-int is_all_num(const char *s) {
+
+static regex_t regexes[REGEX_COUNT];
+
+int
+is_all_num(const char *s) {
     int i = 0;
     while (s[i] != 0) {
         if (s[i] - 0 <= 57 && s[i] - 0 >= 48) {
@@ -91,6 +103,34 @@ int is_all_num(const char *s) {
     }
     return 1;
 }
+
+
+void
+generate_regexes(void)
+{
+	int which;
+	int reti;
+	for (which = T_REG00; which <= T_LABEL; ++which) { /* watch out for +3 !!!!!!!!!!!!!!! */ /* check with t_literal later */
+		if ((reti = regcomp(&regexes[which], token_s[which], REG_EXTENDED | REG_ICASE)) != 0) {
+			printf("could not compile regex: %s\n", token_s[which]);
+            which = T_ERR;
+            break;
+		}
+	}
+	printf("generate_regexes done.\n");
+}
+
+
+void
+free_regexes(void)
+{
+	int which;
+	for (which = T_REG00; which <= T_LABEL; ++which) {
+		regfree(&regexes[which]);
+	}
+	printf("free_regexes done.\n");
+}
+
 
 void
 print_token_info(token_t t)
@@ -105,29 +145,59 @@ print_token_info(token_t t)
     }
 }
 
+
 token_type_t
 get_token_type(const char *word)
 {
-    int iter;
+    int		which;
+	int		reti;
     printf("token = %s;\n", word);
-    for (iter = T_REG01; iter <= T_ALLOCATE; ++iter) {
-        if (strcmp(word, token_s[iter]) == 0) {
-            return (token_type_t)iter;
-        }
+    for (which = T_REG00; which <= T_ALLOCATE; ++which) {
+        if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
+				/* match */
+				printf("match\n");
+				return which;
+		}
+		/* else continue searching */
     }
-    /* if here - either variable name, label or literal */
-    if (word[0] == ':') {
-        /* label (e.g. :lab) */
-        return T_LABEL;
-    } else if (word[0] == '_') {
-        /* variable (e.g. _var) */
-        return T_VARIABLE;
-    } else if (is_all_num(word)) {
-        /* literal (e.g. 1234) */
-        return T_LITERAL;
-    } else {
-        /* no match, error */
-        printf("error in %s;\n", word);
-        return T_ERR;
-    }
+	/* check for literals */
+	while (which <= T_LITERAL) {
+		if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
+			/* match */
+			printf("match\n");
+			return T_LITERAL;
+		}
+		++which;
+	}
+	/* check for variable */
+	if ((reti = regexec(&regexes[T_VARIABLE], word, 0, NULL, 0) == 0)) {
+		/* match */
+		printf("match\n");
+		return T_VARIABLE;
+	}
+	/* check for label */
+	if ((reti = regexec(&regexes[T_LABEL], word, 0, NULL, 0) == 0)) {
+		/* match */
+		printf("match\n");
+		return T_LABEL;
+	}
+	/* */
+
+	/* else error */
+	return T_ERR;
+    // /* if here - either variable name, label or literal */
+    // if (word[0] == ':') {
+    //     /* label (e.g. :lab) */
+    //     return T_LABEL;
+    // } else if (word[0] == '_') {
+    //     /* variable (e.g. _var) */
+    //     return T_VARIABLE;
+    // } else if (is_all_num(word)) {
+    //     /* literal (e.g. 1234) */
+    //     return T_LITERAL;
+    // } else {
+    //     /* no match, error */
+    //     printf("error in %s;\n", word);
+    //     return T_ERR;
+    // }
 }

@@ -8,7 +8,7 @@ int
 main(void)
 {
     /* variables */
-    char            word[21];
+    char            word[25];
     int             check;
     FILE*           fp;
         /* points to the beginning of a list, should not be changed! */
@@ -24,6 +24,7 @@ main(void)
     node = ls_begin;
     
     /* implementation */
+    generate_regexes();
 
     export_add_trailing_newline(path);
 
@@ -43,9 +44,10 @@ main(void)
         node = list_expand(node);
     }
         /* remove that extra token */
-    deinit_list_from(&node);
+    //deinit_list_from(&node);
     //free(node);
-    pnode->next = NULL;
+    //pnode->next = NULL;
+    node->val.type = T_END;
 
     node = ls_begin;
 
@@ -56,6 +58,7 @@ main(void)
     }
 
     deinit_list_from(&ls_begin);
+    free_regexes();
     fclose(fp);
     exit(0);
 }
