@@ -84,7 +84,9 @@ typedef enum {
 	// memory stuff 
 	T_ALLOCATE,
 	// literal
-	T_LITERAL = T_ALLOCATE + 3,
+	T_LITERAL_DECIMAL,
+	T_LITERAL_HEXADECIMAL,
+	T_LITERAL_BINARY,
 	// variable name 
 	T_VARIABLE,
 	/**/
@@ -115,7 +117,7 @@ void
 print_token_info(token_t t);
 
 
-void
+int
 generate_regexes(void);
 
 

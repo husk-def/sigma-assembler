@@ -1,5 +1,6 @@
 #include "list.h"
 
+static node_t saved_node;
 
 /*
  * initializes list
@@ -12,6 +13,21 @@ init_list(void)
     new->next = NULL;
     return new;
 }
+
+
+void
+save_node(node_t node)
+{
+    saved_node = node;
+}
+
+
+node_t*
+get_saved_node(void)
+{
+    return &saved_node;
+}
+
 
 /*
  * deinitializes list nodes starting from where_to_start excluding where_to_start
@@ -77,3 +93,26 @@ list_expand(node_t* current)
     return new;
 }
 
+
+int
+do_function(node_t* begin, void (*f)(token_t))
+{
+    node_t* node = begin;
+    while(node != NULL) {
+        puts("blabla");
+        f(node->val);
+        puts("glagla");
+        node = get_next(node);
+    }
+}
+
+
+void
+print_list(node_t* begin)
+{
+    node_t* node = begin;
+    while(node != NULL) {
+        print_token_info(node->val);
+        node = get_next(node);
+    }
+}

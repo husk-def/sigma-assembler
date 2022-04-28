@@ -8,14 +8,29 @@ skip_until_c(char c, FILE *fp)
 }
 
 
-void
+int
 export_add_trailing_newline(const char* path)
 {
     FILE    *fp;
-    fp = fopen(path, "r+");
-    fseek(fp, 0, SEEK_END);
-    fputc('\n', fp);
-    fclose(fp);
+    char    tmp;
+    /* open as read/append */
+    if ((fp = fopen(path, "a+")) == NULL) {
+        return 1;
+    }
+    /* fseek to the last character */
+    fseek(fp, -1, SEEK_END);
+    /* read that character and move offset to the next */
+    tmp = fgetc(fp);
+    //printf(".%c. is the last character\n", tmp);
+    if (tmp == '\n') {
+        /* don't add a newline */
+        fclose(fp);
+    } else {
+        /* offset is beyond the last character, add a newline */
+        fputc('\n', fp);
+        fclose(fp);
+    }
+    return 0;
 }
 
 
@@ -35,7 +50,7 @@ to_lower_case(char* input, int progsize)
 }
 
 
-void
+int
 export_lower_case(const char* input_path, const char* output_path)
 {
     FILE    *fp_in;
@@ -43,8 +58,13 @@ export_lower_case(const char* input_path, const char* output_path)
     int     input_file_size;
     char    *temp;
 
-    fp_in = fopen(input_path, "r");
-    fp_out = fopen(output_path, "w");
+    if ((fp_in = fopen(input_path, "r")) == NULL) {
+            return 1;
+        }
+
+    if ((fp_out = fopen(output_path, "w")) == NULL) {
+        return 2;
+    }
 
     input_file_size = get_file_size(input_path);
 
@@ -60,23 +80,28 @@ export_lower_case(const char* input_path, const char* output_path)
     fclose(fp_out);
     fclose(fp_in);
     free(temp);
+    return 0;
 }
 
 
-void
+int
 export_uncommented(const char* path_in, const char* path_out)
 {
     FILE    *fp_in;
     FILE    *fp_out;
     char    m;
 
-    fp_in = fopen(path_in, "r");
-    fp_out = fopen(path_out, "w");
+    if ((fp_in = fopen(path_in, "r")) == NULL ||
+        (fp_out = fopen(path_out, "w")) == NULL) {
+            return 1;
+        }
 
     while ((m = fgetc(fp_in)) != EOF) {
         if (m == ';') {
             /* single line comment, ends with \n */
             skip_until_c('\n', fp_in);
+            /* skip_until_c skips until said character including itself, so \n is required after */
+            fputc('\n', fp_out);
             //printf("skip_until_\\n going\n");
         } else if (m == '[') {
             /* multiline comment - ends with ] */
@@ -93,6 +118,7 @@ export_uncommented(const char* path_in, const char* path_out)
     /* cleanup */
     fclose(fp_in);
     fclose(fp_out);
+    return 0;
 }
 
 

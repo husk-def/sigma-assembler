@@ -105,7 +105,7 @@ is_all_num(const char *s) {
 }
 
 
-void
+int
 generate_regexes(void)
 {
 	int which;
@@ -114,10 +114,11 @@ generate_regexes(void)
 		if ((reti = regcomp(&regexes[which], token_s[which], REG_EXTENDED | REG_ICASE)) != 0) {
 			printf("could not compile regex: %s\n", token_s[which]);
             which = T_ERR;
-            break;
+            return 1;
 		}
 	}
 	printf("generate_regexes done.\n");
+	return 0;
 }
 
 
@@ -151,53 +152,38 @@ get_token_type(const char *word)
 {
     int		which;
 	int		reti;
-    printf("token = %s;\n", word);
-    for (which = T_REG00; which <= T_ALLOCATE; ++which) {
+    //printf("token = %s;\n", word);
+    for (which = T_REG00; which <= T_LITERAL_BINARY; ++which) {
         if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
 				/* match */
-				printf("match\n");
+				//printf("match\n");
 				return which;
 		}
 		/* else continue searching */
     }
 	/* check for literals */
-	while (which <= T_LITERAL) {
-		if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
-			/* match */
-			printf("match\n");
-			return T_LITERAL;
-		}
-		++which;
-	}
+	// while (which <= T_LITERAL_DECIMAL) {
+	// 	if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
+	// 		/* match */
+	// 		printf("match\n");
+	// 		return T_LITERAL;
+	// 	}
+	// 	++which;
+	// }
 	/* check for variable */
 	if ((reti = regexec(&regexes[T_VARIABLE], word, 0, NULL, 0) == 0)) {
 		/* match */
-		printf("match\n");
+		//printf("match\n");
 		return T_VARIABLE;
 	}
 	/* check for label */
 	if ((reti = regexec(&regexes[T_LABEL], word, 0, NULL, 0) == 0)) {
 		/* match */
-		printf("match\n");
+		//printf("match\n");
 		return T_LABEL;
 	}
 	/* */
 
 	/* else error */
 	return T_ERR;
-    // /* if here - either variable name, label or literal */
-    // if (word[0] == ':') {
-    //     /* label (e.g. :lab) */
-    //     return T_LABEL;
-    // } else if (word[0] == '_') {
-    //     /* variable (e.g. _var) */
-    //     return T_VARIABLE;
-    // } else if (is_all_num(word)) {
-    //     /* literal (e.g. 1234) */
-    //     return T_LITERAL;
-    // } else {
-    //     /* no match, error */
-    //     printf("error in %s;\n", word);
-    //     return T_ERR;
-    // }
 }

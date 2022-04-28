@@ -3,9 +3,11 @@
 #include "list.h"
 #include "token.h"
 #include "preprocessor.h"
+#include "lexer.h"
+#include <assert.h>
 
 int
-main(void)
+main(int argc, char **argv)
 {
     /* variables */
     char            word[25];
@@ -17,48 +19,38 @@ main(void)
     node_t*         pnode;
         /* hardcoded path, todo change this */
         /* use command line arguments for input and output */
-    const char*     path = "./example/e1.assembly";
-    const char*     lower_path = "./example/e1_lower.assembly";
-    const char*     lower_uncomment_path = "./example/e1_lower_uncomment.assembly";
+    char     path[30] = "./example/";
+    char     lower_path[30] = "./example/mid";
+    char     lower_uncomment_path[30] = "./example/mid_c";
+
+    if (argc <= 2) {
+        printf("error: insufficient number of arguments\n\t[in_file:20] [out_file:20]\n\n");
+        exit(1);
+    }
+
+    strncat(path, argv[1], 15);
+
+    printf("%s\n", path);
+    
 
     node = ls_begin;
     
     /* implementation */
-    generate_regexes();
+    save_node(*ls_begin);
 
-    export_add_trailing_newline(path);
+    assert(generate_regexes() == 0);
 
-    export_lower_case(path, lower_path);
+    assert(export_add_trailing_newline(path) == 0);
 
-    export_uncommented(lower_path, lower_uncomment_path);
+    assert(export_lower_case(path, lower_path) == 0);
 
+    assert(export_uncommented(lower_path, lower_uncomment_path) == 0);
 
-    fp = fopen(lower_uncomment_path, "r");
+    assert(lexical_analysis(lower_uncomment_path, get_saved_node()) == 0);
 
-        /* leaves an extra token at the end */
-    while ((check = fscanf(fp, " %s", word)) > 0) {
-        printf(".%s.\n", word);
-        strcpy(node->val.value, word);
-		node->val.type = get_token_type(node->val.value);
-        pnode = node;
-        node = list_expand(node);
-    }
-        /* remove that extra token */
-    //deinit_list_from(&node);
-    //free(node);
-    //pnode->next = NULL;
-    node->val.type = T_END;
-
-    node = ls_begin;
-
-    printf("\n\nprint token info part\n\n");
-    while(node != NULL) {
-        print_token_info(node->val);
-        node = get_next(node);
-    }
+    print_list(get_saved_node());
 
     deinit_list_from(&ls_begin);
     free_regexes();
-    fclose(fp);
     exit(0);
 }
