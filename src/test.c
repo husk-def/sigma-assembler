@@ -48,7 +48,14 @@ main(int argc, char **argv)
 
     assert(lexical_analysis(lower_uncomment_path, get_saved_node()) == 0);
 
-    print_list(get_saved_node());
+    //print_list(get_saved_node());
+    char broj[30] = "12";
+    dtobs(broj);
+
+    char hb[30] = "0x75a";
+    printf("hb = %d.\n", htod(hb));
+
+    htobs(hb);
 
     deinit_list_from(&ls_begin);
     free_regexes();
