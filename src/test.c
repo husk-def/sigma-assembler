@@ -4,6 +4,7 @@
 #include "token.h"
 #include "preprocessor.h"
 #include "lexer.h"
+#include "parser.h"
 #include <assert.h>
 
 int
@@ -14,7 +15,7 @@ main(int argc, char **argv)
     int             check;
     FILE*           fp;
         /* points to the beginning of a list, should not be changed! */
-    node_t*         ls_begin = init_list();          
+    node_t*         ls_begin = init_list();
     node_t*         node;
     node_t*         pnode;
         /* hardcoded path, todo change this */
@@ -31,10 +32,10 @@ main(int argc, char **argv)
     strncat(path, argv[1], 15);
 
     printf("%s\n", path);
-    
+
 
     node = ls_begin;
-    
+
     /* implementation */
     save_node(*ls_begin);
 
@@ -48,7 +49,13 @@ main(int argc, char **argv)
 
     assert(lexical_analysis(lower_uncomment_path, get_saved_node()) == 0);
 
-    print_list(get_saved_node());
+	print_list(get_saved_node());
+
+	printf("\n*********************************************************\n");
+
+	assert(syntax_analysis(get_saved_node()));
+
+    //print_list(get_saved_node());
 
     deinit_list_from(&ls_begin);
     free_regexes();

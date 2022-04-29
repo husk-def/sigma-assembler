@@ -39,6 +39,9 @@ eat(token_type_t type);
 int
 check_err();
 
+int
+btod(char*);
+
 void
 DEBUG_print(int val);
 
