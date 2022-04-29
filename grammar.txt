@@ -11,7 +11,7 @@ M -> ALLOCATE _!name !size
 M -> _!name !value M
 M -> ALLOCATE _!name !size M
 ------------------------------------------
-L -> :!lab I
+L -> :!lab
 ------------------------------------------
 I -> LD !regC !regA !regB
 I -> ST !regC !regA !regB
