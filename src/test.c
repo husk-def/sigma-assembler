@@ -10,32 +10,27 @@
 int
 main(int argc, char **argv)
 {
-    /* variables */
-    char            word[25];
-    int             check;
-    FILE*           fp;
         /* points to the beginning of a list, should not be changed! */
-    node_t*         ls_begin = init_list();          
-    node_t*         node;
-    node_t*         pnode;
+    node_t*         ls_begin = init_list();
         /* hardcoded path, todo change this */
         /* use command line arguments for input and output */
-    char     path[30] = "./example/";
-    char     lower_path[30] = "./example/mid";
-    char     lower_uncomment_path[30] = "./example/mid_c";
+    char     path[50] = "./example/";
+    char     lower_path[50] = "./example/mid";
+    char     lower_uncomment_path[50] = "./example/mid_c";
+	char	 output_path[50] = "./example/";
 
-    if (argc <= 2) {
-        printf("error: insufficient number of arguments\n\t[in_file:20] [out_file:20]\n\n");
+    if (argc <= 1) {
+        printf("error: insufficient number of arguments\n\t[in_file:20]\n\n");
         exit(1);
     }
 
     strncat(path, argv[1], 15);
+	strncat(output_path, argv[1], 15);
+	strncat(output_path, ".out", 15);
 
     printf("%s\n", path);
-    
+	printf("%s\n", output_path);
 
-    node = ls_begin;
-    
     /* implementation */
     save_node(*ls_begin);
 
@@ -49,13 +44,24 @@ main(int argc, char **argv)
 
     assert(lexical_analysis(lower_uncomment_path, get_saved_node()) == 0);
 
-    print_list(get_saved_node());
+	//print_list(get_saved_node());
 
 	printf("\n*******************************************************************************************\n\n");
 
-	assert(syntax_analysis(get_saved_node()));
+	convert_literals(get_saved_node());
 
-	print_list(get_saved_node());
+	err_t e = syntax_analysis(get_saved_node());
+
+	//print_list(get_saved_node());
+
+	if(e) {
+		printf("\n\nERR: %d at Line: %d\n\n", e, get_line_num());
+	}
+
+	replace_labels(get_saved_node());
+	//print_list(get_saved_node());
+
+	parse(get_saved_node(), output_path);
 
     deinit_list_from(&ls_begin);
     free_regexes();

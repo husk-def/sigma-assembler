@@ -45,7 +45,7 @@ deinit_list_from(node_t** where_to_start)
         temp1->next = NULL;
         free(temp1);
     }
-    
+
 }
 
 /*
@@ -91,20 +91,6 @@ list_expand(node_t* current)
     new->val.value[0] = 0;
     return new;
 }
-
-
-int
-do_function(node_t* begin, void (*f)(token_t))
-{
-    node_t* node = begin;
-    while(node != NULL) {
-        puts("blabla");
-        f(node->val);
-        puts("glagla");
-        node = get_next(node);
-    }
-}
-
 
 void
 print_list(node_t* begin)
