@@ -1,5 +1,3 @@
-
-
 .data
 allocate _vrm 23
 
@@ -10,6 +8,7 @@ add     r2  r2  r3
 :mainlabel
 sub     r3  r2  r2
 ld      r4  r5  r7
-mul     r9  r31 2013                        
-ld      r6  r2  0x70                        
-addc    r2  r6  0b01                        
+mul     r9  r31 r0                        
+ld      r6  r2  r0                        
+add     r2  r6  r0                        
+jmp		r3	:mainlabel

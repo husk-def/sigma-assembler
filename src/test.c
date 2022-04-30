@@ -4,6 +4,7 @@
 #include "token.h"
 #include "preprocessor.h"
 #include "lexer.h"
+#include "parser.h"
 #include <assert.h>
 
 int
@@ -48,14 +49,13 @@ main(int argc, char **argv)
 
     assert(lexical_analysis(lower_uncomment_path, get_saved_node()) == 0);
 
-    //print_list(get_saved_node());
-    char broj[30] = "12";
-    dtobs(broj);
+    print_list(get_saved_node());
 
-    char hb[30] = "0x75a";
-    printf("hb = %d.\n", htod(hb));
+	printf("\n*******************************************************************************************\n\n");
 
-    htobs(hb);
+	assert(syntax_analysis(get_saved_node()));
+
+	print_list(get_saved_node());
 
     deinit_list_from(&ls_begin);
     free_regexes();

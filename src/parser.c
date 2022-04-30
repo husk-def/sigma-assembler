@@ -103,14 +103,14 @@ int
 check_err(int true_end)
 {
 	/* EOF error check */
-	if(curr == NULL && !true_end) {
+	if((curr->val.type == T_END && !true_end) || curr == NULL) {
 		DEBUG_print(-2);
 		err = UNEXPECTED_EOF;
 		return 1;
 	}
 
 	/* EOF check */
-	if(curr == NULL && true_end) {
+	if(curr->val.type == T_END && true_end) {
 		DEBUG_print(-10);
 		return 1;
 	}
