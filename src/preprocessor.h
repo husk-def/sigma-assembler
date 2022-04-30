@@ -25,8 +25,4 @@ int
 export_uncommented(const char* path_in, const char* path_out);
 
 
-/*static inline void
-skip_until_c(char c, FILE *fp);*/
-
-
 #endif /* PREPROCESSOR_H */

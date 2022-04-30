@@ -24,6 +24,14 @@ htobs(char* value);
 
 
 int
+btod(char* value);
+
+
+int
+btobs(char* value);
+
+
+int
 convert_literals(node_t* begin);
 
 #endif /* LEXER_H */
