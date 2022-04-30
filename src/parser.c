@@ -308,6 +308,8 @@ parse(node_t *root, char *path)
 	curr = root;
 	int line = 0;
 	int pline = line;
+	long where = ftell(fp);
+	long diff = where;
 
 	while (strcmp(curr->val.value, ".prog\n")) {
 		curr = get_next(curr);
@@ -316,15 +318,23 @@ parse(node_t *root, char *path)
 	/* writes .prog to file */
 	while (curr != NULL) {
 		line = curr->val.line;
-		if(pline != line) {
-			fprintf(fp, "\n");
-			pline = line;
-		}
 		if(curr->val.type == T_PROG) {
 			fprintf(fp, "%s", curr->val.value);
+			where = ftell(fp);
 		}
 		else {
-			fprintf(fp, "%s ", curr->val.value);
+			if(pline != line) {
+				diff = ftell(fp) - where;
+				if (diff < 32) {
+					for(int i = diff; i < 32; i++) {
+						fprintf(fp, "0");
+					}
+				}
+				fprintf(fp, "\n");
+				where = ftell(fp);
+				pline = line;
+			}
+			fprintf(fp, "%s", curr->val.value);
 		}
 		curr = get_next(curr);
 	}

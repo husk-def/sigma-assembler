@@ -1,6 +1,6 @@
 .data
-allocate _vrm 23
-
+allocate _vrm 4
+_pla 17
 .prog
 
 add     r2  r2  r3                          
