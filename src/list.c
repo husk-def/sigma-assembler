@@ -11,6 +11,9 @@ init_list(void)
     node_t* new;
     new = (node_t*)malloc(1 * sizeof(node_t));
     new->next = NULL;
+    new->val.line = 0;
+    new->val.type = T_ERR;
+    new->val.value[0] = 0;
     return new;
 }
 
@@ -90,6 +93,9 @@ list_expand(node_t* current)
     new = (node_t*)malloc(1 * sizeof(node_t));
     temp->next = new;
     new->next = NULL;
+    new->val.line = 0;
+    new->val.type = T_ERR;
+    new->val.value[0] = 0;
     return new;
 }
 

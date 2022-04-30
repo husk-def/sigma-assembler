@@ -101,7 +101,7 @@ typedef enum {
 
 
 typedef struct {
-    char            value[10];
+    char            value[30];
     //token_class_t   class;
     token_type_t    type;
     int             line;
