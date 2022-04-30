@@ -39,13 +39,6 @@ void
 deinit_list_from(node_t** where_to_start)
 {
     node_t* temp1;
-    /*if (temp1 == (node_t*)NULL) {
-        return;
-    } else {
-        temp2 = *temp1;
-        free(temp1);
-        deinit_list_from(temp2.next);
-    }*/
     while (*where_to_start != NULL) {
         temp1 = *where_to_start;
         *where_to_start = (*where_to_start)->next;

@@ -152,38 +152,12 @@ get_token_type(const char *word)
 {
     int		which;
 	int		reti;
-    //printf("token = %s;\n", word);
-    for (which = T_REG00; which <= T_LITERAL_BINARY; ++which) {
+    for (which = T_REG00; which <= T_LABEL; ++which) {
         if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
 				/* match */
-				//printf("match\n");
 				return which;
 		}
 		/* else continue searching */
     }
-	/* check for literals */
-	// while (which <= T_LITERAL_DECIMAL) {
-	// 	if ((reti = regexec(&regexes[which], word, 0, NULL, 0) == 0)) {
-	// 		/* match */
-	// 		printf("match\n");
-	// 		return T_LITERAL;
-	// 	}
-	// 	++which;
-	// }
-	/* check for variable */
-	if ((reti = regexec(&regexes[T_VARIABLE], word, 0, NULL, 0) == 0)) {
-		/* match */
-		//printf("match\n");
-		return T_VARIABLE;
-	}
-	/* check for label */
-	if ((reti = regexec(&regexes[T_LABEL], word, 0, NULL, 0) == 0)) {
-		/* match */
-		//printf("match\n");
-		return T_LABEL;
-	}
-	/* */
-
-	/* else error */
 	return T_ERR;
 }

@@ -21,7 +21,6 @@ export_add_trailing_newline(const char* path)
     fseek(fp, -1, SEEK_END);
     /* read that character and move offset to the next */
     tmp = fgetc(fp);
-    //printf(".%c. is the last character\n", tmp);
     if (tmp == '\n') {
         /* don't add a newline */
         fclose(fp);
@@ -40,11 +39,9 @@ to_lower_case(char* input, int progsize)
     int     i = 0;
     while (input[i] != 0) {
         if (i >= progsize) {
-            //printf("bug in to_lower_case, i >= progsize, continue. =%c;\n", input[i]);
             break;
         }
         input[i] = tolower(input[i]);
-        //printf("%c\n", input[i]);
         ++i;
     }
 }
@@ -74,7 +71,6 @@ export_lower_case(const char* input_path, const char* output_path)
     fread(temp, input_file_size, sizeof(char), fp_in);
     to_lower_case(temp, input_file_size);
     fwrite(temp, sizeof(char), input_file_size, fp_out);
-    //fputs()
 
     /* cleanup */
     fclose(fp_out);
@@ -102,15 +98,12 @@ export_uncommented(const char* path_in, const char* path_out)
             skip_until_c('\n', fp_in);
             /* skip_until_c skips until said character including itself, so \n is required after */
             fputc('\n', fp_out);
-            //printf("skip_until_\\n going\n");
         } else if (m == '[') {
             /* multiline comment - ends with ] */
             skip_until_c(']', fp_in);
-            //printf("skip_unitl_] going\n");
         } else {
             /* important part of program */
             fputc(m, fp_out);
-            //printf("important: %c\n", m);
         }
     }
     
