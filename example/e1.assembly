@@ -1,18 +1,23 @@
+[
+    NOTE:
+    A PROGRAM SHOULD HAVE A TRAILING NEWLINE
+]
+
 .data
-ALLOCATE _vrm 4
-_pla 17
+ALLOCATE _vrm 23
+
 .prog
 
 add     r2  r2  r3                          ; this is a comment
 [
-    this is a
-    multiline
+    this is a 
+    multiline 
     comment
 ]
 :mainlabel
 SuB     r3  R2  r2
 ld      r4  r5  r7
-mul     r9  r31 r0                        ; multiplies
-ld      r6  r2  r0                        ; check for hexa
-add     r2  r6  r0                        ; check for binary
-jmp		r3	:mainlabel
+mul     r9  r31 2013                        ; multiplies 
+ld      r6  r2  0x70                        ; check for hexa 
+addc    r2  r6  0b01                        ; check for binary 
+addc    r20 r21 -5
