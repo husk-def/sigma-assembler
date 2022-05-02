@@ -22,6 +22,10 @@ syntax_analysis(node_t *root)
 		strcpy(addr_arr[i].label, ".");
 		addr_arr[i].addr = -1;
 	}
+	for (int i = 0; i < MAX_ADDR; i++) {
+		strcpy(var_addr[i].var, ".");
+		var_addr[i].addr = 0;
+	}
 	//DEBUG_print(-100);
 	Q();
 	return err;
@@ -490,6 +494,17 @@ M(void)
 	}
 
 	if(eat(T_VARIABLE)) {
+		for (int i = 0; i < MAX_ADDR; i++) {
+			if (!strcmp(var_addr[i].var, prev->val.value)) {
+				err = REPEAT_VARIABLE;
+				return;
+			}
+			else if (!strcmp(var_addr[i].var, ".")) {
+				strcpy(var_addr[i].var, prev->val.value);
+				var_addr[i].addr = line_num*4;
+				break;
+			}
+		}
 		eat(T_LITERAL_BINARY);
 		line_num += 1;
 	}
@@ -518,14 +533,24 @@ I(void)
 			eat(T_LD);
 			eat(T_REG);
 			eat(T_REG);
-			eat(T_LITERAL_BINARY);
+			if(curr->val.type == T_VARIABLE) {
+				eat(T_VARIABLE);
+			}
+			else {
+				eat(T_LITERAL_BINARY);
+			}
 		}
 		break;
 		case T_ST: {
 			eat(T_ST);
 			eat(T_REG);
 			eat(T_REG);
-			eat(T_LITERAL_BINARY);
+			if(curr->val.type == T_VARIABLE) {
+				eat(T_VARIABLE);
+			}
+			else {
+				eat(T_LITERAL_BINARY);
+			}
 		}
 		break;
 		case T_JMP: {

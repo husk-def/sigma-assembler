@@ -32,6 +32,7 @@ typedef enum {
     ALL_OK = 0,
     UNEXPECTED_TYPE,
     REPEAT_LABEL,
+	REPEAT_VARIABLE
 } err_t;
 
 int
