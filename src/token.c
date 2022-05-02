@@ -74,7 +74,7 @@ const char token_s[78][25] = {
 	/* memory stuff */
 	"^allocate$",
 	/* decimal literal */
-	"^[0-9]{1,16}$",
+	"^-?[0-9]{1,16}$",
 	/* hexadecimal literal */
 	"^0x[0-9a-fA-F]{1,8}$",
 	/* binary literal */
