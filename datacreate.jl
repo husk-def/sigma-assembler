@@ -1,7 +1,21 @@
+import Pkg
+using ArgParse
 
-#
-# done: change to work with 32bit
-#
+function parse_commandline()
+    s = ArgParseSettings()
+
+    @add_arg_table! s begin
+        "--full-path"
+            help = "specifies that a path is full, not relative"
+            action = :store_true
+        "path"
+            help = "path to a file, by default relative"
+            arg_type = String
+            required = true
+    end
+
+    return parse_args(s)
+end
 
 up_data = 
 """
@@ -53,16 +67,33 @@ oQ <= rMEM(to_integer(unsigned(iA)));
 end Behavioral;
 """
 
-pseudo = open("example/pseudo-data", "r")
+parsed_args = parse_commandline()
+wd = pwd()
+fullp = get(parsed_args, "full-path", false)
+in_path = (fullp) ? parsed_args["path"] : parsed_args["path"]
+
+println("read from $in_path")
+
+try
+    global pseudo = open(in_path, "r")
+catch
+    if fullp
+        println("\tno such file found: $in_path")
+    else 
+        println("\tno such file found: $wd/$in_path")
+    end
+    exit(127)
+end
 
 cnt = 0
 mid_data = ""
 #data part
 while (line = readline(pseudo)) != ".prog"
-    println(line)
+    #println(line)
     for word in split(line, " ")            
         if tryparse(Int128, word) !== nothing
-            global mid_data = string(mid_data * "\tsMEM(" * string(cnt) * ") \t<= x\"" * string(parse(Int128, word, base=2), pad=8, base=16) * "\"; ")
+            global mid_data = string(mid_data * "\tsMEM(" * string(cnt) * ") \t<= \"" * lpad(word, 32, word[1]) * "\"; ")
+            global cnt += 1
         elseif occursin(word, white)
             continue
         else
@@ -101,7 +132,7 @@ end Behavioral;
 mid_prog = "\toQ <=\n"
 cnt = 0
 while (line = readline(pseudo)) != ""
-    println(line)
+    #println(line)
     for word in split(line, " ")            
         if tryparse(Int128, word) !== nothing
             global mid_prog = string(mid_prog * "\t\"" * word * "\"\twhen iA(7 downto 2) = " * string(cnt) * " else\t")
