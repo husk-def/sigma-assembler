@@ -518,14 +518,14 @@ I(void)
 			eat(T_LD);
 			eat(T_REG);
 			eat(T_REG);
-			eat(T_REG);
+			eat(T_LITERAL_BINARY);
 		}
 		break;
 		case T_ST: {
 			eat(T_ST);
 			eat(T_REG);
 			eat(T_REG);
-			eat(T_REG);
+			eat(T_LITERAL_BINARY);
 		}
 		break;
 		case T_JMP: {

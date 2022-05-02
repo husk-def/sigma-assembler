@@ -13,8 +13,8 @@ M -> ALLOCATE _!name !size M
 ------------------------------------------
 L -> :!lab
 ------------------------------------------
-I -> LD !regC !regA !regB
-I -> ST !regC !regA !regB
+I -> LD !regC !regA !const
+I -> ST !regC !regA !const
 I -> JMP !regC !label
 I -> BEQ !regC !regA !label
 I -> BNE !regC !regA !label
@@ -46,8 +46,8 @@ I -> XNORC !regC !regA !const
 I -> SHLC !regC !regA !const
 I -> SHRC !regC !regA !const
 I -> SRAC !regC !regA !const
-I -> LD !regC !regA !regB I
-I -> ST !regC !regA !regB I
+I -> LD !regC !regA !const I
+I -> ST !regC !regA !const I
 I -> JMP !regC !label I
 I -> BEQ !regC !regA !label I
 I -> BNE !regC !regA !label I
