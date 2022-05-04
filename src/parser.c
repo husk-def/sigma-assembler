@@ -71,6 +71,7 @@ parse(node_t *root, char *path)
 	int all = 0;
 	int var = 0;
 	char var_s[40];
+	char ins_arr[MAX_ADDR][40];
 	char temp[40];
 
 	/* writes .data to file */
@@ -113,140 +114,207 @@ parse(node_t *root, char *path)
 	while (strcmp(curr->val.value, ".prog")) {
 		curr = get_next(curr);
 	}
-
+	
+	int i = 0;
 	/* change to machine code */
 	while(curr != NULL) {
 		switch (curr->val.type) {
 			case T_LD: {
 				strcpy(curr->val.value, "011000");
+				strcpy(ins_arr[i], "LD");
+				i++;
 			}
 			break;
 			case T_ST: {
 				strcpy(curr->val.value, "011001");
+				strcpy(ins_arr[i], "ST");
+				i++;
 			}
 			break;
 			case T_JMP: {
 				strcpy(curr->val.value, "011011");
+				strcpy(ins_arr[i], "JMP");
+				i++;
 			}
 			break;
 			case T_BEQ: {
 				strcpy(curr->val.value, "011100");
+				strcpy(ins_arr[i], "BEQ");
+				i++;
 			}
 			break;
 			case T_BNE: {
 				strcpy(curr->val.value, "011101");
+				strcpy(ins_arr[i], "BNE");
+				i++;
 			}
 			break;
 			case T_ADD: {
 				strcpy(curr->val.value, "100000");
+				strcpy(ins_arr[i], "ADD");
+				i++;
 			}
 			break;
 			case T_SUB: {
 				strcpy(curr->val.value, "100001");
+				strcpy(ins_arr[i], "SUB");
+				i++;
 			}
 			break;
 			case T_MUL: {
 				strcpy(curr->val.value, "100010");
+				strcpy(ins_arr[i], "MUL");
+				i++;
 			}
 			break;
 			case T_DIV: {
 				strcpy(curr->val.value, "100011");
+				strcpy(ins_arr[i], "DIV");
+				i++;
 			}
 			break;
 			case T_CMPEQ: {
 				strcpy(curr->val.value, "100100");
+				strcpy(ins_arr[i], "CMPEQ");
+				i++;
 			}
 			break;
 			case T_CMPLT: {
 				strcpy(curr->val.value, "100101");
+				strcpy(ins_arr[i], "CMPLT");
+				i++;
 			}
 			break;
 			case T_CMPLE: {
 				strcpy(curr->val.value, "100110");
+				strcpy(ins_arr[i], "CMPLE");
+				i++;
 			}
 			break;
 			case T_AND: {
 				strcpy(curr->val.value, "101000");
+				strcpy(ins_arr[i], "AND");
+				i++;
 			}
 			break;
 			case T_OR: {
 				strcpy(curr->val.value, "101001");
+				strcpy(ins_arr[i], "OR");
+				i++;
 			}
 			break;
 			case T_XOR: {
 				strcpy(curr->val.value, "101010");
+				strcpy(ins_arr[i], "XOR");
+				i++;
 			}
 			break;
 			case T_XNOR: {
 				strcpy(curr->val.value, "101011");
+				strcpy(ins_arr[i], "XNOR");
+				i++;
 			}
 			break;
 			case T_SHL: {
 				strcpy(curr->val.value, "101100");
+				strcpy(ins_arr[i], "SHL");
+				i++;
 			}
 			break;
 			case T_SHR: {
 				strcpy(curr->val.value, "101101");
+				strcpy(ins_arr[i], "SHR");
+				i++;
 			}
 			break;
 			case T_SRA: {
 				strcpy(curr->val.value, "101110");
+				strcpy(ins_arr[i], "SRA");
+				i++;
 			}
 			break;
 			case T_ADDC: {
 				strcpy(curr->val.value, "110000");
+				strcpy(ins_arr[i], "ADDC");
+				i++;
 			}
 			break;
 			case T_SUBC: {
 				strcpy(curr->val.value, "110001");
+				strcpy(ins_arr[i], "SUBC");
+				i++;
 			}
 			break;
 			case T_MULC: {
 				strcpy(curr->val.value, "110010");
+				strcpy(ins_arr[i], "MULC");
+				i++;
 			}
 			break;
 			case T_DIVC: {
 				strcpy(curr->val.value, "110011");
+				strcpy(ins_arr[i], "DIVC");
+				i++;
 			}
 			break;
 			case T_CMPEQC: {
 				strcpy(curr->val.value, "110100");
+				strcpy(ins_arr[i], "CMPEQC");
+				i++;
 			}
 			break;
 			case T_CMPLTC: {
 				strcpy(curr->val.value, "110101");
+				strcpy(ins_arr[i], "CMPLTC");
+				i++;
 			}
 			break;
 			case T_CMPLEC: {
 				strcpy(curr->val.value, "110110");
+				strcpy(ins_arr[i], "CMPLEC");
+				i++;
 			}
 			break;
 			case T_ANDC: {
 				strcpy(curr->val.value, "111000");
+				strcpy(ins_arr[i], "ANDC");
+				i++;
 			}
 			break;
 			case T_ORC: {
 				strcpy(curr->val.value, "111001");
+				strcpy(ins_arr[i], "ORC");
+				i++;
 			}
 			break;
 			case T_XORC: {
 				strcpy(curr->val.value, "111010");
+				strcpy(ins_arr[i], "se ");
+				i++;
 			}
 			break;
 			case T_XNORC: {
 				strcpy(curr->val.value, "111011");
+				strcpy(ins_arr[i], "XNORC");
+				i++;
 			}
 			break;
 			case T_SHLC: {
 				strcpy(curr->val.value, "111100");
+				strcpy(ins_arr[i], "SHLC");
+				i++;
 			}
 			break;
 			case T_SHRC: {
 				strcpy(curr->val.value, "111101");
+				strcpy(ins_arr[i], "SHRC");
+				i++;
 			}
 			break;
 			case T_SRAC: {
 				strcpy(curr->val.value, "111110");
+				strcpy(ins_arr[i], "SRAC");
+				i++;
 			}
 			break;
 			case T_PROG: {
@@ -319,6 +387,7 @@ parse(node_t *root, char *path)
 		curr = get_next(curr);
 	}
 
+	i = 0;
 	/* writes .prog to file */
 	while (curr != NULL) {
 		line = curr->val.line;
@@ -334,9 +403,11 @@ parse(node_t *root, char *path)
 						fprintf(fp, "0");
 					}
 				}
+				fprintf(fp, " %s", ins_arr[i]);
 				fprintf(fp, "\n");
 				where = ftell(fp);
 				pline = line;
+				i++;
 			}
 			fprintf(fp, "%s", curr->val.value);
 		}
