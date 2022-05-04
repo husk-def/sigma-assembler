@@ -19,17 +19,18 @@ end
 
 up_data = 
 """
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity data_ram is
-    Port ( iCLK : in  STD_LOGIC;
-           iRST : in  STD_LOGIC;
-           iA : in  STD_LOGIC_VECTOR (7 downto 0); -- was 5 bits because the memory had 32 places
-           iD : in  STD_LOGIC_VECTOR (31 downto 0);
-           iWE : in  STD_LOGIC;
-           oQ : out  STD_LOGIC_VECTOR (31 downto 0));
+    Port (  iCLK :  in  std_logic;
+            iRST :  in  std_logic;
+            iAdr :  in  std_logic_vector (7 downto 0); -- was 5 bits because the memory had 32 places
+            iWD  :  in  std_logic_vector (31 downto 0);
+            iWE  :  in  std_logic;
+            iOE  :  in  std_logic;
+            oRD  :  out  std_logic_vector (31 downto 0));
 end data_ram;
 
 architecture Behavioral of data_ram is
@@ -47,7 +48,7 @@ begin
             end loop;
         elsif (iCLK'event and iCLK = '1') then
             if (iWE = '1') then
-                rMEM(to_integer(unsigned(iA))) <= iD;
+                rMEM(to_integer(unsigned(iAdr))) <= iWD;
             end if;
         end if;
     end process;
@@ -61,8 +62,10 @@ white = " \t\n"
 low_data = 
 """
 --- to here  ---------------------------------------------------------------
-    
-oQ <= rMEM(to_integer(unsigned(iA)));
+
+with iOE select oRD <=
+    rMEM(to_integer(unsigned(iAdr)))    when '1',
+    x"00000000"                         when others;
 
 end Behavioral;
 """
@@ -100,7 +103,6 @@ while (line = readline(pseudo)) != ".prog"
             global mid_data = string(mid_data * " -- " * word)
         end
     end
-    global cnt += 1
     global mid_data = string(mid_data * "\n")
 end
 
@@ -110,13 +112,13 @@ close(data_file)
 
 up_prog = 
 """
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_SIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_signed.all;
 
 entity instr_rom is
-    Port ( iA : in  STD_LOGIC_VECTOR (7 downto 0);
-           oQ : out  STD_LOGIC_VECTOR (31 downto 0));
+    Port ( iA : in  std_logic_vector (7 downto 0);
+           oQ : out  std_logic_vector (31 downto 0));
 end instr_rom;
 
 architecture Behavioral of instr_rom is
