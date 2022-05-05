@@ -1,23 +1,11 @@
-[
-    note:
-    a program should have a trailing newline
-]
-
 .data
 allocate _vrm 23
 _m 15
 
 .prog
-
-add     r2  r2  r3                          ; this is a comment
-[
-    this is a 
-    multiline 
-    comment
-]
-:mainlabel
-sub     r3  r2  r2
-ld      r4  r31	_m
-ld      r6  r2  0x70                        ; check for hexa 
-addc    r2  r6  0b01                        ; check for binary 
-addc    r20 r21 -5
+ld		r0 r31 _m
+addc	r1 r0  1
+st		r1 r31 0
+and		r0 r31 r0
+and		r1 r31 r1
+add		r0 r0  r1
