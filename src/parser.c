@@ -441,7 +441,7 @@ binary_to_decimal(char* binary)
 void
 DEBUG_print(int val)
 {
-	printf("TOKEN: %s | LINE: %d | ID: %d\n", curr->val.value, line_num, val);
+	printf("TOKEN: %s | LINE: %d | ID: %d\n", curr->val.value, curr->val.line, val);
 }
 
 /*
@@ -581,6 +581,17 @@ M(void)
 	}
 	else if(eat(T_ALLOCATE)) {
 		eat(T_VARIABLE);
+		for (int i = 0; i < MAX_ADDR; i++) {
+			if (!strcmp(var_addr[i].var, prev->val.value)) {
+				err = REPEAT_VARIABLE;
+				return;
+			}
+			else if (!strcmp(var_addr[i].var, ".")) {
+				strcpy(var_addr[i].var, prev->val.value);
+				var_addr[i].addr = line_num*4;
+				break;
+			}
+		}
 		int to_increase = binary_to_decimal(curr->val.value);
 		eat(T_LITERAL_BINARY);
 		line_num += to_increase;
@@ -604,7 +615,7 @@ I(void)
 			eat(T_LD);
 			eat(T_REG);
 			eat(T_REG);
-			if(curr->val.type == T_VARIABLE) {
+			if (curr->val.type == T_VARIABLE) {
 				eat(T_VARIABLE);
 			}
 			else {
@@ -616,7 +627,7 @@ I(void)
 			eat(T_ST);
 			eat(T_REG);
 			eat(T_REG);
-			if(curr->val.type == T_VARIABLE) {
+			if (curr->val.type == T_VARIABLE) {
 				eat(T_VARIABLE);
 			}
 			else {

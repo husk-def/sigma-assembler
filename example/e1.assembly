@@ -5,7 +5,7 @@ _m 15
 .prog
 LD		R0 R31 _m
 ADDC	R1 R0  1
-ST		R1 R31 0
+ST		R1 R31 _vrm
 AND		R0 R31 R0
 AND		R1 R31 R1
 ADD		R0 R0  R1
