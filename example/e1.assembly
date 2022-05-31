@@ -1,11 +1,16 @@
+;rgb_matrix_addr	0x100
+;frame_sync_addr	0x140
+;buttons_addr		0x200
+
+;y<<6 | x<<3 | RGB = matrix_signal
+
 .data
-ALLOCATE _vrm 23
-_m 15
+	_framescnt	0
+	_fph		75
 
 .prog
-LD		R0 R31 _m
-ADDC	R1 R0  1
-ST		R1 R31 _vrm
-AND		R0 R31 R0
-AND		R1 R31 R1
-ADD		R0 R0  R1
+	ADDC	R1	R31	3 ; R1 = o3
+	SHLC	R1	R1	3 ; R1 = o30
+	ADDC	R1	R31 3 ; R1 = o33
+	SHLC	R1	R1	3 ; R1 = o330
+	ADDC	R1	R31	4 ; R1 = o334
