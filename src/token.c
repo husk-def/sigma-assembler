@@ -48,7 +48,7 @@ const char token_s[78][25] = {
 	"^cmplt$",
 	"^cmple$",
 	"^and$",
-	"^orc$",
+	"^or$",
 	"^xor$",
 	"^xnor$",
 	"^shl$",
