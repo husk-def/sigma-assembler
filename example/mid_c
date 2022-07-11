@@ -1,11 +1,50 @@
 .data
-allocate _vrm 23
-_m 15
+	_var	2
 
 .prog
-ld		r0 r31 _m
-addc	r1 r0  1
-st		r1 r31 _vrm
-and		r0 r31 r0
-and		r1 r31 r1
-add		r0 r0  r1
+
+	
+	addc	r0	r31	4
+	addc	r1	r31	5
+	addc	r2	r31	6
+	addc	r3	r31	7
+	addc	r4	r31	8
+	ld		r5	r31	_var	
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+:a
+	subc	r5	r5	1		
+	add		r1	r1	r0		
+	sub		r4	r4	r1		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	and		r1	r1	r0		
+	or		r0	r0	r1		
+	add		r2	r2	r3		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	xor		r2	r2	r2		
+	xnor	r1	r1	r1		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	shlc	r1	r1	4		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	shr		r1	r1	r3		
+	cmpeq	r6	r31	r5
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	add		r30	r31	r31		
+	bne		r7	r6	:a		
+
+

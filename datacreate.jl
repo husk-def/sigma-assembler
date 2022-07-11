@@ -135,8 +135,12 @@ mid_prog = "\toQ <=\n"
 cnt = 0
 while (line = readline(pseudo)) != ""
     #println(line)
+
     for word in split(line, " ")            
         if tryparse(Int128, word) !== nothing
+            if cmp(word[1:6], "011011") == 0
+                word = string(word[1:11] * "11111" * word[12:27])
+            end
             global mid_prog = string(mid_prog * "\t\"" * word * "\"\twhen iA(7 downto 2) = " * string(cnt) * " else\t")
         elseif occursin(word, white)
             continue

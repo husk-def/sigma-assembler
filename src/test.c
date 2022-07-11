@@ -24,7 +24,7 @@ main(int argc, char **argv)
     char     debug[20];
 
     if (argc != 3) {
-        printf("error: insufficient number of arguments\n\t[in_file:20]\n/t[--no-debug/--debug]\n\n");
+        printf("error: insufficient number of arguments\n\t[in_file:20]\n\t[--no-debug/--debug]\n\n");
         exit(1);
     }
 
