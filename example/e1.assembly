@@ -10,41 +10,41 @@
 	ADDC	R3	R31	7
 	ADDC	R4	R31	8
 	LD		R5	R31	_var	;FOR LOOP START
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 :a
 	SUBC	R5	R5	1		; 1 0
 	ADD		R1	R1	R0		; 9
 	SUB		R4	R4	R1		; -1
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 	AND		R1	R1	R0		; 0
 	OR		R0	R0	R1		; 4
 	ADD		R2	R2	R3		; D
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 	XOR		R2	R2	R2		; 0
 	XNOR	R1	R1	R1		; -1
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 	SHLC	R1	R1	4		; big number
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 	SHR		R1	R1	R3		; smaller big number
 	CMPEQ	R6	R31	R5
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
-	ADD		R30	R31	R31		;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
+	NOP						;NOP
 	BNE		R7	R6	:a		;FOR LOOP END
 
 [

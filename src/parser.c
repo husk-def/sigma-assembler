@@ -317,6 +317,12 @@ parse(node_t *root, char *path)
 				i++;
 			}
 			break;
+			case T_NOP: {
+				strcpy(curr->val.value, "000000");
+				strcpy(ins_arr[i], "NOP");
+				i++;
+			}
+			break;
 			case T_PROG: {
 				sprintf(temp, "%s\n", curr->val.value);
 				strcpy(curr->val.value, temp);
@@ -849,6 +855,10 @@ I(void)
 			eat(T_REG);
 			eat(T_REG);
 			eat(T_LITERAL_BINARY);
+		}
+		break;
+		case T_NOP: {
+			eat(T_NOP);
 		}
 		break;
 		case T_END: {

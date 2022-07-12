@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <regex.h>
 
-#define REGEX_COUNT 78
+#define REGEX_COUNT 79
 
 
 /* token_t enum */
@@ -78,6 +78,7 @@ typedef enum {
 	T_SHLC,
 	T_SHRC,
 	T_SRAC,
+	T_NOP,
 	// directives 
 	T_PROG,
 	T_DATA,

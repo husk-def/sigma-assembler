@@ -1,6 +1,6 @@
 #include "token.h"
 
-const char token_s[78][25] = {
+const char token_s[79][25] = {
     /* registers */
 	"^r0$",
 	"^r1$",
@@ -68,6 +68,7 @@ const char token_s[78][25] = {
 	"^shlc$",
 	"^shrc$",
 	"^srac$",
+	"^nop$",
 	/* directives */
 	"^.prog$",
 	"^.data$",
