@@ -18,34 +18,33 @@
 	subc	r5	r5	1		; 1 0
 	add		r1	r1	r0		; 9
 	sub		r4	r4	r1		; -1
-	nop						;nop
-	nop						;nop
-	nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
 	and		r1	r1	r0		; 0
 	or		r0	r0	r1		; 4
 	add		r2	r2	r3		; d
-	nop						;nop
-	nop						;nop
-	nop						;nop
-	nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
 	xor		r2	r2	r2		; 0
 	xnor	r1	r1	r1		; -1
-	nop						;nop
-	nop						;nop
-	nop						;nop
-	nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
 	shlc	r1	r1	4		; big number
-	nop						;nop
-	nop						;nop
-	nop						;nop
-	nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
 	shr		r1	r1	r3		; smaller big number
-	cmpeq	r6	r31	r5
-	nop						;nop
-	nop						;nop
-	nop						;nop
-	nop						;nop
-	bne		r7	r6	:a		;for loop end
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
+	;nop						;nop
+	bne		r7	r5	:a		;for loop end
 
 [
 	addc	r0	r31	2

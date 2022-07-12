@@ -152,7 +152,7 @@ while (line = readline(pseudo)) != ""
     global mid_prog = string(mid_prog * "\n")
 end
 
-mid_prog = string(mid_prog * "\t\"00000000000000000000000000000000\";\n")
+mid_prog = string(mid_prog * "\t\"11111100000000000000000000000000\";\n")
 
 prog_file = open("example/prog_file.vhd", "w")
 write(prog_file, up_prog * mid_prog * low_prog)
