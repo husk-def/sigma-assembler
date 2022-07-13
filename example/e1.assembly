@@ -14,6 +14,7 @@
 	;NOP						;NOP
 	;NOP						;NOP
 	;NOP						;NOP
+	ADD		R10	R10	R10
 :a
 	SUBC	R5	R5	1		; 1 0
 	ADD		R1	R1	R0		; 9
