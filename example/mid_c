@@ -10,10 +10,10 @@
 	addc	r3	r31	7
 	addc	r4	r31	8
 	ld		r5	r31	_var	
-	nop						
-	nop						
-	nop						
-	nop						
+	
+	
+	
+	
 :a
 	subc	r5	r5	1		
 	add		r1	r1	r0		

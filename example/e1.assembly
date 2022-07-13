@@ -10,10 +10,10 @@
 	ADDC	R3	R31	7
 	ADDC	R4	R31	8
 	LD		R5	R31	_var	;FOR LOOP START
-	NOP						;NOP
-	NOP						;NOP
-	NOP						;NOP
-	NOP						;NOP
+	;NOP						;NOP
+	;NOP						;NOP
+	;NOP						;NOP
+	;NOP						;NOP
 :a
 	SUBC	R5	R5	1		; 1 0
 	ADD		R1	R1	R0		; 9
